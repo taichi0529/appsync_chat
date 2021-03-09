@@ -1,0 +1,12 @@
+type Message
+@model
+@auth(rules: [
+    { allow: owner , identityClaim: "sub" }
+    { allow: private, operations:[read] }
+])
+@key(name: "sortByCreatedAt", fields:["createdAt"]) #DynamoDBへGSIが作られる
+{
+    id: ID!
+    content: String
+    createdAt: AWSDateTime!
+}
