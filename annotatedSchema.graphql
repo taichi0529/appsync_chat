@@ -4,8 +4,10 @@ type Message
     { allow: owner , identityClaim: "sub" }
     { allow: private, operations:[read] }
 ])
-@key(name: "sortByCreatedAt", fields:["createdAt"]) #DynamoDBへGSIが作られる
+@key(fields:["roomID", "createdAt"]) #DynamoDBへパーティションキー（hash key)、レンジキー(sort key)が作られる
+@key(name: "primaryKey", fields:["id"])
 {
+    roomID: String!
     id: ID!
     content: String
     createdAt: AWSDateTime!
