@@ -41,4 +41,7 @@ amplify-gradle-config.json
 amplifytools.xcconfig
 .secret-*
 
+amplify/
+.graphqlconfig.yml
 src/graphql/
+src/API.ts
