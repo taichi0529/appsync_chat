@@ -9,7 +9,18 @@
     <router-view />
   </div>
 </template>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+import { Auth } from 'aws-amplify'
 
+@Component({})
+export default class Login extends Vue {
+  async mounted() {
+    const currentUser = await Auth.currentAuthenticatedUser().catch(() => null)
+    this.$store.commit('login', { currentUser })
+  }
+}
+</script>
 <style>
 @import '~@/assets/style.css';
 #app {

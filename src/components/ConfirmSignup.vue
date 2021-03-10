@@ -1,13 +1,17 @@
 <template>
-  <div class="signin">
-    <h2>SignIn</h2>
+  <div class="signup">
+    <h2>ConfirmSignUp</h2>
     <label>
       <input type="text" placeholder="email" v-model="email" />
     </label>
     <label>
-      <input type="password" placeholder="password" v-model="password" />
+      <input
+        type="text"
+        placeholder="verificationCode"
+        v-model="verificationCode"
+      />
     </label>
-    <button @click.prevent="submit">SignIn</button>
+    <button @click.prevent="submit">SignUp</button>
   </div>
 </template>
 
@@ -16,14 +20,13 @@ import { Component, Vue } from 'vue-property-decorator'
 import { Auth } from 'aws-amplify'
 
 @Component
-export default class Signin extends Vue {
+export default class ConfirmSignup extends Vue {
   protected email = ''
-  protected password = ''
+  protected verificationCode = ''
   async submit() {
     try {
-      const currentUser = await Auth.signIn(this.email, this.password)
-      this.$store.commit('login', { currentUser })
-      alert('SignInしました')
+      await Auth.confirmSignUp(this.email, this.verificationCode)
+      alert('確認しました')
     } catch (error) {
       alert('error')
       console.log(error)

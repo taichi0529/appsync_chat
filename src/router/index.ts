@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue'
 import About from '@/views/About.vue'
 import Login from '@/views/Login.vue'
 import Chat from '@/views/Chat.vue'
+import Store from '@/store/'
 
 Vue.use(VueRouter)
 
@@ -32,6 +33,14 @@ const routes: Array<RouteConfig> = [
 
 const router = new VueRouter({
   routes,
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.name !== 'Login' && !Store.getters.currentUser) {
+    next({ name: 'Login' })
+  } else {
+    next()
+  }
 })
 
 export default router
